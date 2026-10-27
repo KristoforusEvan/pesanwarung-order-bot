@@ -6,9 +6,16 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
 
-
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Halo! Selamat datang di warung kami.")
+
+async def menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        """Menu hari ini:
+1. Nasi goreng - Rp15.000
+2. Mie goreng - Rp13.000
+3. Es teh - Rp4.000"""
+    )
 
 
 app = (
@@ -23,6 +30,7 @@ app = (
     .build()
 )
 app.add_handler(CommandHandler("start", start))
+app.add_handler(CommandHandler("menu", menu))
 
 print("Bot jalan...")
 app.run_polling()
